@@ -17,9 +17,11 @@ let shuffle = function(array) {
 const deck = document.querySelector('.deck');
 const cards = deck.querySelectorAll('.card');
 let arr = []; // Create a list that holds all of your cards
+let oldNode = [];
 
 // Set event listeners for "cards"
 for (let i = 0; i < cards.length; i++) {
+  oldNode.push(cards[i]);
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
     cards[i].classList.toggle("open");
@@ -30,15 +32,21 @@ for (let i = 0; i < cards.length; i++) {
 function shuff() { //shuffle the list of cards using the "shuffle" method
   shuffle(arr);
   arr = shuffle(arr);
+  removeHtml();
+  addHtml();
 }
 
+function removeHtml() { //loop through each card and remove each card's HTML to the page
+  for (j = 0; j < 16; j++) {
+    deck.removeChild(oldNode[j]);
+  }
+}
 
-/*
- * Display the cards on the page
- *   -
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+function addHtml() { //loop through each card and add each card's HTML to the page
+  for (j = 0; j < 16; j++) {
+    deck.appendChild(arr[j]);
+  }
+}
 
 
 
