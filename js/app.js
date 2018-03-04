@@ -14,6 +14,7 @@ let shuffle = function(array) {
   return array;
 }
 
+const moveCount = 0;
 const deck = document.querySelector('.deck');
 const cards = deck.querySelectorAll('.card');
 let arr = []; // Create a list that holds all of your cards
@@ -36,13 +37,13 @@ function shuff() { //shuffle the list of cards using the "shuffle" method
   addHtml();
 }
 
-function removeHtml() { //loop through each card and remove each card's HTML to the page
+function removeHtml() { //loop through each card and REMOVE each card's HTML to the page
   for (j = 0; j < 16; j++) {
     deck.removeChild(oldNode[j]);
   }
 }
 
-function addHtml() { //loop through each card and add each card's HTML to the page
+function addHtml() { //loop through each card and ADD each card's HTML to the page
   for (j = 0; j < 16; j++) {
     deck.appendChild(arr[j]);
   }
