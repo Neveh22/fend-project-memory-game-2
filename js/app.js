@@ -1,7 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-
+const deck = document.querySelector('.deck');
+const cards = deck.querySelectorAll('.card');
+let arr = cards;
 
 /*
  * Display the cards on the page
@@ -38,11 +40,10 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-const deck = document.querySelector('.deck');
-const cards = deck.querySelectorAll('.card');
 
+// Set event listeners for "cards"
 for (let i = 0; i < cards.length; i++) {
-  cards[i].addEventListener("click", function(event) {
+  cards[i].addEventListener("click", function(event) { //"onclick" functions
     cards[i].classList.toggle("open");
     cards[i].classList.toggle("show");
   });
