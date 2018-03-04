@@ -1,19 +1,5 @@
-/*
- * Create a list that holds all of your cards
- */
-const deck = document.querySelector('.deck');
-const cards = deck.querySelectorAll('.card');
-let arr = cards;
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
+let shuffle = function(array) {
   let currentIndex = array.length,
     temporaryValue, randomIndex;
 
@@ -28,6 +14,34 @@ function shuffle(array) {
   return array;
 }
 
+const deck = document.querySelector('.deck');
+const cards = deck.querySelectorAll('.card');
+let arr = []; // Create a list that holds all of your cards
+
+// Set event listeners for "cards"
+for (let i = 0; i < cards.length; i++) {
+  arr.push(cards[i]); // Create a list that holds all of your cards
+  cards[i].addEventListener("click", function(event) { //"onclick" functions
+    cards[i].classList.toggle("open");
+    cards[i].classList.toggle("show");
+  });
+}
+
+function shuff() { //shuffle the list of cards using the "shuffle" method
+  shuffle(arr);
+  arr = shuffle(arr);
+}
+
+
+/*
+ * Display the cards on the page
+ *   -
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -39,12 +53,3 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-
-// Set event listeners for "cards"
-for (let i = 0; i < cards.length; i++) {
-  cards[i].addEventListener("click", function(event) { //"onclick" functions
-    cards[i].classList.toggle("open");
-    cards[i].classList.toggle("show");
-  });
-}
