@@ -61,6 +61,7 @@ function noMatch() {
   for (var i = 0; i < shown.length; i++) {
     shown[i].classList.remove("open");
     shown[i].classList.remove("show");
+    shown[i].
   }
   openCards = [];
   openCardSelectors = [];
