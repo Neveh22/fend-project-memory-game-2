@@ -25,7 +25,7 @@ let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll('.match');
 let once = 1; //TODO reset to zero when shuffle is called
-let startTime, running;
+let startTime, running, time;
 
 // Set event listeners for "cards"
 for (let i = 0; i < cards.length; i++) {
@@ -46,21 +46,29 @@ for (let i = 0; i < cards.length; i++) {
     bingo = deck.querySelectorAll('.match');
     if (bingo.length == 16) {
       modal.style.display = "block"; // Displays Modal
-      let clone = scorePanel.cloneNode(true);
       if (once == 0) {
-        span.insertAdjacentElement("afterend", clone);
         startStop(); // Stops timmer
+        addHtml2();
         once++;
       }
     }
   });
 }
 
+function addHtml2() {
+  let tempP = document.createElement("p");
+  let pContent = document.createTextNode(time);
+  tempP.appendChild(pContent);
+  winner.insertAdjacentElement("afterend", tempP);
+  let clone = scorePanel.cloneNode(true);
+  span.insertAdjacentElement("afterend", clone);
+}
+
 function startStop() {
   if (running) {
     let timeTaken = Date.now() - startTime;
     running = false;
-    console.log("Time: " + Math.round(timeTaken / 100) / 10 + " Seconds");
+    time = "Time: " + Math.round(timeTaken / 100) / 10 + " Seconds!!";
   } else {
     running = true;
     startTime = Date.now();
