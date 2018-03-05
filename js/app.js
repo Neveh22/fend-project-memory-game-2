@@ -17,9 +17,10 @@ let shuffle = function(array) {
 const deck = document.querySelector('.deck');
 const cards = deck.querySelectorAll('.card');
 const moves = document.querySelector('.moves');
+const modal = document.querySelector('#myModal');
+const span = document.querySelector(".close");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
-let openCardSelectors = [];
 
 // Set event listeners for "cards"
 for (let i = 0; i < cards.length; i++) {
@@ -33,8 +34,22 @@ for (let i = 0; i < cards.length; i++) {
       symbolChecker(cards[i]); //pull the card's symbol
       openCardChecker();
     }
+    let bingo = deck.querySelectorAll('.match');
+    if (bingo.length == 16) {
+      modal.style.display = "block";
+    }
   });
 }
+
+span.addEventListener("click", function() { // When the user clicks on <span> (x), close the modal
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", function(event) { // When the user clicks anywhere outside of the modal, close it
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+});
 
 function mvCounter() { //increment the move counter and display it on the page
   moves.innerText++;
@@ -45,7 +60,6 @@ function symbolChecker(elm) {
   for (j = 0; j < symbols.length; j++) {
     if (elm.children[0].className.includes(symbols[j])) {
       openCards.push(symbols[j]); //add the card to a *list* of "open" cards
-      openCardSelectors.push(elm.classList);
     }
   }
 }
@@ -95,7 +109,7 @@ V *  - add the card to a *list* of "open" cards (put this functionality in anoth
 V *  - if the list already has another card, check to see if the two cards match
 V *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 V *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+V *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
