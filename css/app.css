@@ -111,6 +111,10 @@ h1 {
   font-weight: bold;
 }
 
+.score-panel .restart:hover {
+  color: #02ccba;
+}
+
 /* The Modal (background) */
 
 .modal {

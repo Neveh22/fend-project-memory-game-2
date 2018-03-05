@@ -14,17 +14,17 @@ let shuffle = function(array) {
   return array;
 }
 
-const deck = document.querySelector('.deck');
-const cards = deck.querySelectorAll('.card');
-const moves = document.querySelector('.moves');
-const modal = document.querySelector('#myModal');
+const deck = document.querySelector(".deck");
+const cards = deck.querySelectorAll(".card");
+const moves = document.querySelector(".moves");
+const modal = document.querySelector("#myModal");
 const span = document.querySelector(".close");
 const scorePanel = document.querySelector(".score-panel");
 const winner = document.querySelector(".winner");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
-let bingo = deck.querySelectorAll('.match');
-let once = 1; //TODO reset to zero when shuffle is called
+let bingo = deck.querySelectorAll(".match");
+let once = 1; //TODO
 let startTime, running, time;
 
 // Set event listeners for "cards"
@@ -53,6 +53,22 @@ for (let i = 0; i < cards.length; i++) {
       }
     }
   });
+}
+
+for (k = 0; k < 2; k++) {
+  let restart = document.querySelectorAll(".restart"); //TODO get second restart selector to respond to click event
+  restart[k].addEventListener("click", function() {
+    restartGame();
+  });
+}
+
+function restartGame() {
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].className = "card animated rollOut"
+  }
+  setTimeout(function() {
+    shuff();
+  }, 1000);
 }
 
 function addHtml2() {
@@ -143,7 +159,7 @@ function shuff() { //shuffle the list of cards using the "shuffle" method
   addHtml();
 }
 
-function removeHtml() { //loop through each card and REMOVE each card's HTML to the page
+function removeHtml() { //loop through each card and REMOVE each card's HTML from the page
   for (j = 0; j < 16; j++) {
     deck.removeChild(arr[j]);
   }
@@ -151,6 +167,12 @@ function removeHtml() { //loop through each card and REMOVE each card's HTML to 
 
 function addHtml() { //loop through each card and ADD each card's HTML to the page
   for (j = 0; j < 16; j++) {
+    cards[j].className = "card animated rollIn"
     deck.appendChild(arr[j]);
   }
+  setTimeout(function() {
+    for (j = 0; j < 16; j++) {
+      cards[j].className = "card"
+    }
+  }, 1000);
 }
