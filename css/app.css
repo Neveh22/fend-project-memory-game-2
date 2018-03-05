@@ -156,3 +156,10 @@ h1 {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* ok button */
+
+.ok {
+  cursor: pointer;
+  background-color: #02ccba;
+}
