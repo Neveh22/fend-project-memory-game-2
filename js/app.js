@@ -25,12 +25,13 @@ let openCardSelectors = [];
 for (let i = 0; i < cards.length; i++) {
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
-    cards[i].classList.toggle("open");
-    cards[i].classList.toggle("show");
-    cards[i].classList.remove("rubberBand", "animated");
-    symbolChecker(cards[i]); //pull the card's symbol
-    openCardChecker();
-    //TO DO -- Enable on-click functions here -- TO DO
+    if (openCards.length !== 2) { //prevent default on-click function after two cards have flipped
+      cards[i].classList.toggle("open");
+      cards[i].classList.toggle("show");
+      cards[i].classList.remove("rubberBand", "animated");
+      symbolChecker(cards[i]); //pull the card's symbol
+      openCardChecker();
+    }
   });
 }
 
@@ -45,7 +46,6 @@ function symbolChecker(elm) {
 }
 
 function openCardChecker() { //check to see if the two cards match
-  //TO DO -- prevent default on-click function after two cards have flipped -- TO DO
   if (openCards.length == 2 && openCards[0] === openCards[1]) {
     matched();
   } else if (openCards.length == 2 && openCards[0] !== openCards[1]) {
@@ -55,7 +55,7 @@ function openCardChecker() { //check to see if the two cards match
   }
 }
 
-function matched() {
+function matched() { //lock matched cards in the open position
   let shown = document.querySelectorAll('.open');
   for (var i = 0; i < shown.length; i++) {
     shown[i].className = "card animated tada match";
