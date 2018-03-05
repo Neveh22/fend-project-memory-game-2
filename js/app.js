@@ -14,9 +14,9 @@ let shuffle = function(array) {
   return array;
 }
 
-const moveCount = 0;
 const deck = document.querySelector('.deck');
 const cards = deck.querySelectorAll('.card');
+let moveCount = 0;
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let openCardSelectors = [];
@@ -27,8 +27,10 @@ for (let i = 0; i < cards.length; i++) {
   cards[i].addEventListener("click", function(event) { //"onclick" functions
     cards[i].classList.toggle("open");
     cards[i].classList.toggle("show");
+    cards[i].classList.remove("rubberBand", "animated");
     symbolChecker(cards[i]); //pull the card's symbol
     openCardChecker();
+    //TO DO -- Enable on-click functions here -- TO DO
   });
 }
 
@@ -43,9 +45,10 @@ function symbolChecker(elm) {
 }
 
 function openCardChecker() { //check to see if the two cards match
-  if (openCards.length == 2 && openCards[0] == openCards[1]) {
+  //TO DO -- prevent default on-click function after two cards have flipped -- TO DO
+  if (openCards.length == 2 && openCards[0] === openCards[1]) {
     matched();
-  } else if (openCards.length == 2) {
+  } else if (openCards.length == 2 && openCards[0] !== openCards[1]) {
     setTimeout(function() {
       noMatch();
     }, 2000);
@@ -53,18 +56,33 @@ function openCardChecker() { //check to see if the two cards match
 }
 
 function matched() {
-
-}
-
-function noMatch() {
-  const shown = document.querySelectorAll('.show');
+  let shown = document.querySelectorAll('.open');
   for (var i = 0; i < shown.length; i++) {
-    shown[i].classList.remove("open", "show", "rubberBand");
-    shown[i].classList.add("animated", "rubberBand");
+    shown[i].className = "card animated tada match";
   }
   openCards = [];
   openCardSelectors = [];
 }
+
+function noMatch() {
+  let shown = document.querySelectorAll('.open');
+  for (var i = 0; i < shown.length; i++) {
+    shown[i].className = "card animated rubberBand";
+    setTimeout(function() {
+      clearToCard();
+    }, 1000);
+  }
+  openCards = [];
+  openCardSelectors = [];
+}
+
+function clearToCard() {
+  let shown = document.querySelectorAll('.rubberBand');
+  for (var i = 0; i < shown.length; i++) {
+    shown[i].className = "card";
+  }
+}
+
 /*
 V * set up the event listener for a card. If a card is clicked:
 V *  - display the card's symbol (put this functionality in another function that you call from this one)
