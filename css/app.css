@@ -141,9 +141,11 @@ h1 {
 /* X Button */
 
 .close {
+  top: -18px;
+  position: relative;
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 42px;
   font-weight: bold;
 }
 

@@ -19,14 +19,18 @@ const cards = deck.querySelectorAll('.card');
 const moves = document.querySelector('.moves');
 const modal = document.querySelector('#myModal');
 const span = document.querySelector(".close");
+const scorePanel = document.querySelector(".score-panel");
+const winner = document.querySelector(".winner");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
+let bingo = deck.querySelectorAll('.match');
+let once = 0; //TODO reset to zero when shuffle is called 
 
 // Set event listeners for "cards"
 for (let i = 0; i < cards.length; i++) {
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
-    if (openCards.length !== 2) { //prevent default on-click function after two cards have flipped
+    if (openCards.length !== 2 && bingo.length !== 16) { //prevent default on-click function after two cards have flipped
       cards[i].classList.toggle("open");
       cards[i].classList.toggle("show");
       cards[i].classList.remove("rubberBand", "animated");
@@ -34,9 +38,14 @@ for (let i = 0; i < cards.length; i++) {
       symbolChecker(cards[i]); //pull the card's symbol
       openCardChecker();
     }
-    let bingo = deck.querySelectorAll('.match');
+    bingo = deck.querySelectorAll('.match');
     if (bingo.length == 16) {
       modal.style.display = "block";
+      let clone = scorePanel.cloneNode(true);
+      if (once == 0) {
+        span.insertAdjacentElement("afterend", clone);
+        once++;
+      }
     }
   });
 }
@@ -101,17 +110,6 @@ function clearToCard() {
     shown[i].className = "card";
   }
 }
-
-/*
-V * set up the event listener for a card. If a card is clicked:
-V *  - display the card's symbol (put this functionality in another function that you call from this one)
-V *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
-V *  - if the list already has another card, check to see if the two cards match
-V *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-V *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-V *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
 
 function shuff() { //shuffle the list of cards using the "shuffle" method
   shuffle(arr);
