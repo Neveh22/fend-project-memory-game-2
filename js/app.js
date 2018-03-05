@@ -24,7 +24,8 @@ const winner = document.querySelector(".winner");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll('.match');
-let once = 0; //TODO reset to zero when shuffle is called 
+let once = 1; //TODO reset to zero when shuffle is called
+let startTime, running;
 
 // Set event listeners for "cards"
 for (let i = 0; i < cards.length; i++) {
@@ -37,17 +38,33 @@ for (let i = 0; i < cards.length; i++) {
       mvCounter(); //increment the move counter and display it on the page
       symbolChecker(cards[i]); //pull the card's symbol
       openCardChecker();
+      if (once == 1) {
+        startStop(); // Starts timmer
+        once--;
+      }
     }
     bingo = deck.querySelectorAll('.match');
     if (bingo.length == 16) {
-      modal.style.display = "block";
+      modal.style.display = "block"; // Displays Modal
       let clone = scorePanel.cloneNode(true);
       if (once == 0) {
         span.insertAdjacentElement("afterend", clone);
+        startStop(); // Stops timmer
         once++;
       }
     }
   });
+}
+
+function startStop() {
+  if (running) {
+    let timeTaken = Date.now() - startTime;
+    running = false;
+    console.log("Time: " + Math.round(timeTaken / 100) / 10 + " Seconds");
+  } else {
+    running = true;
+    startTime = Date.now();
+  }
 }
 
 span.addEventListener("click", function() { // When the user clicks on <span> (x), close the modal
