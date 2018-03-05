@@ -16,7 +16,7 @@ let shuffle = function(array) {
 
 const deck = document.querySelector('.deck');
 const cards = deck.querySelectorAll('.card');
-let moveCount = 0;
+const moves = document.querySelector('.moves');
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let openCardSelectors = [];
@@ -29,10 +29,15 @@ for (let i = 0; i < cards.length; i++) {
       cards[i].classList.toggle("open");
       cards[i].classList.toggle("show");
       cards[i].classList.remove("rubberBand", "animated");
+      mvCounter(); //increment the move counter and display it on the page
       symbolChecker(cards[i]); //pull the card's symbol
       openCardChecker();
     }
   });
+}
+
+function mvCounter() { //increment the move counter and display it on the page
+  moves.innerText++;
 }
 
 function symbolChecker(elm) {
@@ -88,7 +93,7 @@ V * set up the event listener for a card. If a card is clicked:
 V *  - display the card's symbol (put this functionality in another function that you call from this one)
 V *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
 V *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+V *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 V *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
