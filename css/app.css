@@ -2,14 +2,11 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: inherit;
 }
 
-html,
-body {
+html, body {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -105,10 +102,24 @@ h1 {
   display: inline-block;
 }
 
+.bronze {
+  color: #CD7F32;
+}
+
+.silver {
+  color: #C0C0C0;
+}
+
+.gold {
+  color: #FFD700;
+}
+
 .score-panel .restart {
   float: right;
   cursor: pointer;
   font-weight: bold;
+  font-size: 24px;
+  line-height: 63px;
 }
 
 .score-panel .restart:hover {
@@ -154,8 +165,7 @@ h1 {
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: #02ccba;
   text-decoration: none;
   cursor: pointer;
