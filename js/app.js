@@ -26,8 +26,12 @@ let openCards = [];
 let bingo = deck.querySelectorAll(".match");
 let once = 1; //TODO ??
 let startTime, running, time;
+let restart = document.querySelector(".restart");
 
-// Set event listeners for "cards"
+restart.addEventListener("click", function() { // Sets event listener for restart
+  restartGame();
+});
+
 for (let i = 0; i < cards.length; i++) {
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
@@ -52,13 +56,6 @@ for (let i = 0; i < cards.length; i++) {
         once++;
       }
     }
-  });
-}
-
-for (k = 0; k < 2; k++) {
-  let restart = document.querySelectorAll(".restart");
-  restart[k].addEventListener("click", function() {
-    restartGame();
   });
 }
 
