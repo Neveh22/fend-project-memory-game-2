@@ -21,12 +21,17 @@ const modal = document.querySelector("#myModal");
 const span = document.querySelector(".close");
 const scorePanel = document.querySelector(".score-panel");
 const winner = document.querySelector(".winner");
+const ok = document.querySelector(".ok");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
 let once = 1; //TODO ??
 let startTime, running, time;
 let restart = document.querySelector(".restart");
+
+ok.addEventListener("click", function() { // Sets event listener for ok button
+  restartGame();
+});
 
 restart.addEventListener("click", function() { // Sets event listener for restart
   restartGame();
@@ -60,6 +65,7 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 function restartGame() {
+  modal.style.display = "none";
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = "card animated rollOut"
   }
