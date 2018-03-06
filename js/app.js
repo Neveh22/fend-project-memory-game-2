@@ -66,6 +66,7 @@ for (let i = 0; i < cards.length; i++) {
 
 function restartGame() {
   modal.style.display = "none";
+  moves.innerText = 0;
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = "card animated rollOut"
   }
