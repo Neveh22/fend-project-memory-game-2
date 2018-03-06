@@ -23,12 +23,23 @@ const scorePanel = document.querySelector(".score-panel");
 const winner = document.querySelector(".winner");
 const ok = document.querySelector(".ok");
 const message = document.querySelector(".modal-content");
+const bronze = document.querySelector(".bronze");
+const silver = document.querySelector(".silver");
+const gold = document.querySelector(".gold");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
 let once = 1; //TODO ??
 let startTime, running, time;
 let restart = document.querySelector(".restart");
+
+function medals() {
+  if (moves.innerText > 24 && gold.style.display == "") {
+    gold.style.display = "none";
+  } else if (moves.innerText > 28 && silver.style.display == "") {
+    silver.style.display = "none";
+  }
+}
 
 ok.addEventListener("click", function() { // Sets event listener for ok button
   restartGame();
@@ -46,6 +57,7 @@ for (let i = 0; i < cards.length; i++) {
       cards[i].classList.toggle("show");
       cards[i].classList.remove("rubberBand", "animated");
       mvCounter(); //increment the move counter and display it on the page
+      medals();
       symbolChecker(cards[i]); //pull the card's symbol
       openCardChecker();
       if (once == 1) {
