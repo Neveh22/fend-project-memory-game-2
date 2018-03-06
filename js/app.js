@@ -24,7 +24,7 @@ const winner = document.querySelector(".winner");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
-let once = 1; //TODO
+let once = 1; //TODO ??
 let startTime, running, time;
 
 // Set event listeners for "cards"
@@ -56,7 +56,7 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 for (k = 0; k < 2; k++) {
-  let restart = document.querySelectorAll(".restart"); //TODO get second restart selector to respond to click event
+  let restart = document.querySelectorAll(".restart");
   restart[k].addEventListener("click", function() {
     restartGame();
   });
@@ -78,6 +78,12 @@ function addHtml2() {
   winner.insertAdjacentElement("afterend", tempP);
   let clone = scorePanel.cloneNode(true);
   span.insertAdjacentElement("afterend", clone);
+  for (k = 0; k < 2; k++) {
+    let restart = document.querySelectorAll(".restart");
+    restart[k].addEventListener("click", function() {
+      restartGame();
+    });
+  }
 }
 
 function startStop() {
