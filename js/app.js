@@ -22,6 +22,7 @@ const span = document.querySelector(".close");
 const scorePanel = document.querySelector(".score-panel");
 const winner = document.querySelector(".winner");
 const ok = document.querySelector(".ok");
+const message = document.querySelector(".modal-content");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
@@ -65,6 +66,9 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 function restartGame() {
+  let timer = document.querySelector(".timer");
+  message.removeChild(timer);
+  message.removeChild(message.children[1]);
   modal.style.display = "none";
   moves.innerText = 0;
   for (let i = 0; i < cards.length; i++) {
@@ -77,6 +81,7 @@ function restartGame() {
 
 function addHtml2() {
   let tempP = document.createElement("p");
+  tempP.className = "timer";
   let pContent = document.createTextNode(time);
   tempP.appendChild(pContent);
   winner.insertAdjacentElement("afterend", tempP);
