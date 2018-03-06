@@ -79,9 +79,11 @@ for (let i = 0; i < cards.length; i++) {
 
 function restartGame() {
   let timer = document.querySelector(".timer");
-  message.removeChild(timer);
+  message.removeChild(timer); //TODO fix bug that stops restart from working 
   message.removeChild(message.children[1]);
   modal.style.display = "none";
+  silver.style.display = "initial";
+  gold.style.display = "initial";
   moves.innerText = 0;
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = "card animated rollOut"
