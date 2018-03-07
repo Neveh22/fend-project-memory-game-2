@@ -84,6 +84,21 @@ h1 {
 }
 
 /*
+ * Styles for the Score Board
+ */
+
+.score-board {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  grid-gap: 20px;
+}
+
+.clock {
+  display: inline-block;
+}
+
+/*
  * Styles for the Score Panel
  */
 
@@ -91,7 +106,6 @@ h1 {
   text-align: left;
   height: 68px;
   width: 345px;
-  margin-bottom: 10px;
   line-height: 63px;
 }
 

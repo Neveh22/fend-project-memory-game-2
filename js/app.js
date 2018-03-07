@@ -30,8 +30,14 @@ let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
 let once = 1; //TODO ??
-let startTime, running, time;
+let startTime, running, time, timeTaken;
 let restart = document.querySelector(".restart");
+
+function stopWatch() {
+  timeTaken = Date.now() - startTime;
+  let t = Math.round(timeTaken / 100) / 10;
+  console.log(t);
+}
 
 function medals() {
   if (moves.innerText > 24 && gold.style.display == "") {
@@ -108,7 +114,7 @@ function addHtml2() {
 
 function startStop() {
   if (running) {
-    let timeTaken = Date.now() - startTime;
+    timeTaken = Date.now() - startTime;
     running = false;
     time = "Time: " + Math.round(timeTaken / 100) / 10 + " Seconds!!";
   } else {
@@ -184,7 +190,7 @@ function shuff() { //shuffle the list of cards using the "shuffle" method
   removeHtml();
   addHtml();
   let timer = document.querySelector(".timer");
-  message.removeChild(timer); //TODO fix bug that stops restart from working
+  message.removeChild(timer);
   message.removeChild(message.children[1]);
 }
 
