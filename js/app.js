@@ -87,6 +87,10 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 function restartGame() {
+  running = false;
+  once = 1;
+  clearInterval(ticker); //clock timer stops ticking
+  seconds.innerText = 0;
   modal.style.display = "none";
   silver.style.display = "initial";
   gold.style.display = "initial";
