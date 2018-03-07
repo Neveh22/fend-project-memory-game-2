@@ -26,17 +26,18 @@ const message = document.querySelector(".modal-content");
 const bronze = document.querySelector(".bronze");
 const silver = document.querySelector(".silver");
 const gold = document.querySelector(".gold");
+const seconds = document.querySelector(".seconds");
 let arr = []; // Create a list that holds all of your cards
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
 let once = 1; //TODO ??
-let startTime, running, time, timeTaken;
+let startTime, running, time, timeTaken, t, ticker;
 let restart = document.querySelector(".restart");
 
-function stopWatch() {
+let stopWatch = function() { // Displays time elapsed
   timeTaken = Date.now() - startTime;
-  let t = Math.round(timeTaken / 100) / 10;
-  console.log(t);
+  t = Math.round((timeTaken + 100) / 100) / 10;
+  seconds.innerText = t;
 }
 
 function medals() {
@@ -58,16 +59,17 @@ restart.addEventListener("click", function() { // Sets event listener for restar
 for (let i = 0; i < cards.length; i++) {
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
-    if (openCards.length !== 2 && bingo.length !== 16) { //prevent default on-click function after two cards have flipped
+    if (openCards.length !== 2 && bingo.length !== 16) { //prevent default on-click function after two cards have flipped or user wins
+      cards[i].classList.remove("rubberBand", "animated");
       cards[i].classList.toggle("open");
       cards[i].classList.toggle("show");
-      cards[i].classList.remove("rubberBand", "animated");
       mvCounter(); //increment the move counter and display it on the page
       medals();
       symbolChecker(cards[i]); //pull the card's symbol
       openCardChecker();
       if (once == 1) {
         startStop(); // Starts timmer
+        ticker = setInterval(stopWatch, 120); //clock timer start ticking
         once--;
       }
     }
@@ -77,6 +79,7 @@ for (let i = 0; i < cards.length; i++) {
       if (once == 0) {
         startStop(); // Stops timmer
         addHtml2();
+        clearInterval(ticker); //clock timer stops ticking
         once++;
       }
     }
