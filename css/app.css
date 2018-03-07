@@ -202,4 +202,11 @@ h1 {
 .ok {
   cursor: pointer;
   background-color: #02ccba;
+  border-radius: 5px;
+  font-size: 30px;
+}
+
+.ok:hover {
+  color: #02ccba;
+  background-color: white;
 }
