@@ -42,9 +42,10 @@ let stopWatch = function() { // Displays time elapsed
 
 function medals() {
   if (moves.innerText > 24 && gold.style.display == "") {
-    gold.style.display = "none";
-  } else if (moves.innerText > 28 && silver.style.display == "") {
-    silver.style.display = "none";
+    gold.className = "fa fa-star fa-3x gold animated bounceOut";
+  }
+  if (moves.innerText > 28) {
+    silver.className = "fa fa-star fa-2x silver animated bounceOut";
   }
 }
 
@@ -87,13 +88,16 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 function restartGame() {
+  bronze.classList = "fa fa-star fa-lg bronze hide";
+  silver.classList = "fa fa-star fa-2x silver hide";
+  gold.classList = "fa fa-star fa-3x gold hide"
   running = false;
   once = 1;
   clearInterval(ticker); //clock timer stops ticking
   seconds.innerText = 0;
   modal.style.display = "none";
-  silver.style.display = "initial";
-  gold.style.display = "initial";
+  //silver.classList = "fa fa-star fa-2x silver";
+  //gold.classList = "fa fa-star fa-3x gold";
   moves.innerText = 0;
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = "card animated rollOut"
@@ -192,6 +196,9 @@ function clearToCard() {
 }
 
 function shuff() { //shuffle the list of cards using the "shuffle" method
+  bronze.classList = "fa fa-star fa-lg bronze animated bounceIn";
+  silver.classList = "fa fa-star fa-2x silver animated bounceIn";
+  gold.classList = "fa fa-star fa-3x gold animated bounceIn"
   shuffle(arr);
   arr = shuffle(arr);
   removeHtml();

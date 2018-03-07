@@ -210,3 +210,9 @@ h1 {
   color: #02ccba;
   background-color: white;
 }
+
+/* class applied to hide*/
+
+.hide {
+  visibility: hidden;
+}
