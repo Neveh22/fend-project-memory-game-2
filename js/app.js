@@ -78,9 +78,6 @@ for (let i = 0; i < cards.length; i++) {
 }
 
 function restartGame() {
-  let timer = document.querySelector(".timer");
-  message.removeChild(timer); //TODO fix bug that stops restart from working 
-  message.removeChild(message.children[1]);
   modal.style.display = "none";
   silver.style.display = "initial";
   gold.style.display = "initial";
@@ -186,6 +183,9 @@ function shuff() { //shuffle the list of cards using the "shuffle" method
   arr = shuffle(arr);
   removeHtml();
   addHtml();
+  let timer = document.querySelector(".timer");
+  message.removeChild(timer); //TODO fix bug that stops restart from working
+  message.removeChild(message.children[1]);
 }
 
 function removeHtml() { //loop through each card and REMOVE each card's HTML from the page
