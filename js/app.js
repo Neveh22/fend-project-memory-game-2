@@ -58,6 +58,7 @@ ok.addEventListener("click", function() { // Sets event listener for OK button
 restart.addEventListener("click", function() { // Sets event listener for restart
   restartGame();
 });
+
 for (let i = 0; i < cards.length; i++) {
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
@@ -72,7 +73,7 @@ for (let i = 0; i < cards.length; i++) {
       if (once == 1) {
         startStop(); // Starts timmer
         ticker = setInterval(stopWatch, 120); //clock timer start ticking
-        once--;
+        once = 0;
       }
     }
     bingo = deck.querySelectorAll('.match');
@@ -95,10 +96,10 @@ function populateFromStorage() { // pulls values from local storage then updates
   timeTaken = Date.now() - (JSON.parse(localStorage.getItem("seconds")) ||
     startTime);
   seconds.innerText = (Math.round((timeTaken + 100) / 100) / 10 || 0);
-  if (once == 1) {
+  if (once == 1 && localStorage.length != 0) {
     startStop(); // Starts timmer
     ticker = setInterval(stopWatch, 120); //clock timer start ticking
-    once--;
+    once = 0;
   }
   if (localStorage.length != 0) { // checking first to see if there is anything stored in localStorage
     for (j = 0; j < 16; j++) {
