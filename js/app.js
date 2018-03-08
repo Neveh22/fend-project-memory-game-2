@@ -1,5 +1,4 @@
-// Shuffle function from http://stackoverflow.com/a/2450976
-let shuffle = function(array) {
+let shuffle = function(array) { // Shuffle function from http://stackoverflow.com/a/2450976
   let currentIndex = array.length,
     temporaryValue, randomIndex;
 
@@ -28,16 +27,20 @@ const silver = document.querySelector(".silver");
 const gold = document.querySelector(".gold");
 const seconds = document.querySelector(".seconds");
 let arr = []; // Create a list that holds all of your cards
+let cardClass = []; // card classNames
+let cardSymbol = [];
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
 let once = 1; //TODO ??
 let startTime, running, time, timeTaken, t, ticker;
 let restart = document.querySelector(".restart");
+populateFromStorage();
 
-let stopWatch = function() { // Displays time elapsed
+function stopWatch() { // Displays time elapsed
   timeTaken = Date.now() - startTime;
   t = Math.round((timeTaken + 100) / 100) / 10;
   seconds.innerText = t;
+  seconds.innerText.onchange = populateStorage();
 }
 
 function medals() {
@@ -87,7 +90,40 @@ for (let i = 0; i < cards.length; i++) {
   });
 }
 
+function populateFromStorage() {
+  cardClass = JSON.parse(localStorage.getItem("cardClass")) || cardClass;
+  cardSymbol = JSON.parse(localStorage.getItem("cardSymbol")) || cardSymbol;
+  moves.innerText = JSON.parse(localStorage.getItem("moves")) || moves.innerText;
+  timeTaken = Date.now() - (JSON.parse(localStorage.getItem("seconds")) || startTime);
+  seconds.innerText = (Math.round((timeTaken + 100) / 100) / 10 || 0);
+  if (once == 1) {
+    startStop(); // Starts timmer
+    ticker = setInterval(stopWatch, 120); //clock timer start ticking
+    once--;
+  }
+  if (localStorage.length != 0) {
+    for (j = 0; j < 16; j++) {
+      cards[j].classList = cardClass[j];
+      cards[j].childNodes[1].classList = cardSymbol[j];
+    }
+  }
+}
+
+function populateStorage() {
+  cardClass = [];
+  cardSymbol = [];
+  for (j = 0; j < 16; j++) {
+    cardClass.push(arr[j].className);
+    cardSymbol.push(arr[j].childNodes[1].className);
+  }
+  localStorage.setItem("cardClass", JSON.stringify(cardClass));
+  localStorage.setItem("cardSymbol", JSON.stringify(cardSymbol));
+  localStorage.setItem("seconds", JSON.stringify(startTime));
+  localStorage.setItem("moves", JSON.stringify(moves.innerText));
+}
+
 function restartGame() {
+  localStorage.clear();
   bronze.classList = "fa fa-star fa-lg bronze hide";
   silver.classList = "fa fa-star fa-2x silver hide";
   gold.classList = "fa fa-star fa-3x gold hide"
@@ -96,8 +132,6 @@ function restartGame() {
   clearInterval(ticker); //clock timer stops ticking
   seconds.innerText = 0;
   modal.style.display = "none";
-  //silver.classList = "fa fa-star fa-2x silver";
-  //gold.classList = "fa fa-star fa-3x gold";
   moves.innerText = 0;
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = "card animated rollOut"
@@ -130,7 +164,7 @@ function startStop() {
     time = "Time: " + Math.round(timeTaken / 100) / 10 + " Seconds!!";
   } else {
     running = true;
-    startTime = Date.now();
+    startTime = JSON.parse(localStorage.getItem("seconds")) || Date.now();
   }
 }
 
