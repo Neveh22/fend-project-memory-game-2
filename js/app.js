@@ -31,14 +31,14 @@ let cardClass = []; // card classNames
 let cardSymbol = [];
 let openCards = [];
 let bingo = deck.querySelectorAll(".match");
-let once = 1; //TODO ??
+let once = 1;
 let startTime, running, time, timeTaken, t, ticker;
 let restart = document.querySelector(".restart");
-populateFromStorage();
+populateFromStorage(); //loads from local storage
 
-function stopWatch() { // Displays time elapsed
+function stopWatch() { // Displays time elapsed near clock icon
   timeTaken = Date.now() - startTime;
-  if (timeTaken > 999999) {
+  if (timeTaken > 999999) { //time limit
     timeTaken = 999999;
   }
   t = Math.round((timeTaken + 100) / 100) / 10;
@@ -46,7 +46,7 @@ function stopWatch() { // Displays time elapsed
   seconds.innerText.onchange = populateStorage();
 }
 
-function medals() {
+function medals() { //accordding to amount of moves stars are taken away
   if (moves.innerText > 24 && gold.style.display == "") {
     gold.className = "fa fa-star fa-3x gold animated bounceOut";
   }
@@ -55,7 +55,7 @@ function medals() {
   }
 }
 
-ok.addEventListener("click", function() { // Sets event listener for ok button
+ok.addEventListener("click", function() { // Sets event listener for OK button
   restartGame();
 });
 
@@ -81,11 +81,11 @@ for (let i = 0; i < cards.length; i++) {
       }
     }
     bingo = deck.querySelectorAll('.match');
-    if (bingo.length == 16) {
+    if (bingo.length == 16) { //checks for all matches to be made
       modal.style.display = "block"; // Displays Modal
       if (once == 0) {
         startStop(); // Stops timmer
-        addHtml2();
+        addHtml2(); //adds relevant content to modal window
         clearInterval(ticker); //clock timer stops ticking
         once++;
       }
@@ -93,7 +93,7 @@ for (let i = 0; i < cards.length; i++) {
   });
 }
 
-function populateFromStorage() {
+function populateFromStorage() { // pulls values from local storage then updates each value
   cardClass = JSON.parse(localStorage.getItem("cardClass")) || cardClass;
   cardSymbol = JSON.parse(localStorage.getItem("cardSymbol")) || cardSymbol;
   moves.innerText = JSON.parse(localStorage.getItem("moves")) || moves.innerText;
@@ -104,7 +104,7 @@ function populateFromStorage() {
     ticker = setInterval(stopWatch, 120); //clock timer start ticking
     once--;
   }
-  if (localStorage.length != 0) {
+  if (localStorage.length != 0) { // checking first to see if there is anything stored in localStorage
     for (j = 0; j < 16; j++) {
       cards[j].classList = cardClass[j];
       cards[j].childNodes[1].classList = cardSymbol[j];
@@ -112,7 +112,7 @@ function populateFromStorage() {
   }
 }
 
-function populateStorage() {
+function populateStorage() { //saves values to localStorage
   cardClass = [];
   cardSymbol = [];
   for (j = 0; j < 16; j++) {
@@ -125,7 +125,7 @@ function populateStorage() {
   localStorage.setItem("moves", JSON.stringify(moves.innerText));
 }
 
-function restartGame() {
+function restartGame() { //sets everything back to initial state and shuffles card order
   localStorage.clear();
   bronze.classList = "fa fa-star fa-lg bronze hide";
   silver.classList = "fa fa-star fa-2x silver hide";
@@ -144,15 +144,15 @@ function restartGame() {
   }, 1000);
 }
 
-function addHtml2() {
+function addHtml2() { //adds relevant content to modal window
   let tempP = document.createElement("p");
   tempP.className = "timer";
   let pContent = document.createTextNode(time);
   tempP.appendChild(pContent);
   winner.insertAdjacentElement("afterend", tempP);
-  let clone = scorePanel.cloneNode(true);
-  span.insertAdjacentElement("afterend", clone);
-  for (k = 0; k < 2; k++) {
+  let clone = scorePanel.cloneNode(true); //copies content from scorePanel
+  span.insertAdjacentElement("afterend", clone); //pastes content from scorePanel
+  for (k = 0; k < 2; k++) { // makes sure both "RESTART"s respond to click events
     let restart = document.querySelectorAll(".restart");
     restart[k].addEventListener("click", function() {
       restartGame();
@@ -160,11 +160,11 @@ function addHtml2() {
   }
 }
 
-function startStop() {
+function startStop() { // starts or stops counting
   if (running) {
     timeTaken = Date.now() - startTime;
     running = false;
-    if (timeTaken > 999999) {
+    if (timeTaken > 999999) { // time limit
       timeTaken = 999999;
     }
     time = "Time: " + Math.round(timeTaken / 100) / 10 + " Seconds!!";
@@ -188,11 +188,11 @@ function mvCounter() { //increment the move counter and display it on the page
   moves.innerText++;
 }
 
-function symbolChecker(elm) {
+function symbolChecker(elm) { //add the card to a *list* of "open" cards and asigns symbol
   let symbols = ["diamond", "paper", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
   for (j = 0; j < symbols.length; j++) {
     if (elm.children[0].className.includes(symbols[j])) {
-      openCards.push(symbols[j]); //add the card to a *list* of "open" cards
+      openCards.push(symbols[j]);
     }
   }
 }
@@ -212,11 +212,10 @@ function matched() { //lock matched cards in the open position
   for (var i = 0; i < shown.length; i++) {
     shown[i].className = "card animated tada match";
   }
-  openCards = [];
-  openCardSelectors = [];
+  openCards = []; // resets list
 }
 
-function noMatch() {
+function noMatch() { // if cards don't match
   let shown = document.querySelectorAll('.open');
   for (var i = 0; i < shown.length; i++) {
     shown[i].className = "card animated rubberBand";
@@ -224,11 +223,10 @@ function noMatch() {
       clearToCard();
     }, 1000);
   }
-  openCards = [];
-  openCardSelectors = [];
+  openCards = []; // resets list
 }
 
-function clearToCard() {
+function clearToCard() { // flips cards over to original state
   let shown = document.querySelectorAll('.rubberBand');
   for (var i = 0; i < shown.length; i++) {
     shown[i].className = "card";
@@ -244,8 +242,8 @@ function shuff() { //shuffle the list of cards using the "shuffle" method
   removeHtml();
   addHtml();
   let timer = document.querySelector(".timer");
-  message.removeChild(timer);
-  message.removeChild(message.children[1]);
+  message.removeChild(timer); //clears space for new modal content
+  message.removeChild(message.children[1]); //clears space for new modal content
 }
 
 function removeHtml() { //loop through each card and REMOVE each card's HTML from the page
@@ -259,7 +257,7 @@ function addHtml() { //loop through each card and ADD each card's HTML to the pa
     cards[j].className = "card animated rollIn"
     deck.appendChild(arr[j]);
   }
-  setTimeout(function() {
+  setTimeout(function() { // flips all cards over to original state
     for (j = 0; j < 16; j++) {
       cards[j].className = "card"
     }
