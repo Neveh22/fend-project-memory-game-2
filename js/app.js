@@ -1,7 +1,6 @@
 let shuffle = function(array) { // Shuffle function from http://stackoverflow.com/a/2450976
   let currentIndex = array.length,
     temporaryValue, randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -9,10 +8,8 @@ let shuffle = function(array) { // Shuffle function from http://stackoverflow.co
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
-
 const deck = document.querySelector(".deck");
 const cards = deck.querySelectorAll(".card");
 const moves = document.querySelector(".moves");
@@ -34,6 +31,7 @@ let bingo = deck.querySelectorAll(".match");
 let once = 1;
 let startTime, running, time, timeTaken, t, ticker;
 let restart = document.querySelector(".restart");
+
 populateFromStorage(); //loads from local storage
 
 function stopWatch() { // Displays time elapsed near clock icon
@@ -54,15 +52,12 @@ function medals() { //accordding to amount of moves stars are taken away
     silver.className = "fa fa-star fa-2x silver animated bounceOut";
   }
 }
-
 ok.addEventListener("click", function() { // Sets event listener for OK button
   restartGame();
 });
-
 restart.addEventListener("click", function() { // Sets event listener for restart
   restartGame();
 });
-
 for (let i = 0; i < cards.length; i++) {
   arr.push(cards[i]); // Create a list that holds all of your cards
   cards[i].addEventListener("click", function(event) { //"onclick" functions
@@ -97,7 +92,8 @@ function populateFromStorage() { // pulls values from local storage then updates
   cardClass = JSON.parse(localStorage.getItem("cardClass")) || cardClass;
   cardSymbol = JSON.parse(localStorage.getItem("cardSymbol")) || cardSymbol;
   moves.innerText = JSON.parse(localStorage.getItem("moves")) || moves.innerText;
-  timeTaken = Date.now() - (JSON.parse(localStorage.getItem("seconds")) || startTime);
+  timeTaken = Date.now() - (JSON.parse(localStorage.getItem("seconds")) ||
+    startTime);
   seconds.innerText = (Math.round((timeTaken + 100) / 100) / 10 || 0);
   if (once == 1) {
     startStop(); // Starts timmer
@@ -129,7 +125,7 @@ function restartGame() { //sets everything back to initial state and shuffles ca
   localStorage.clear();
   bronze.classList = "fa fa-star fa-lg bronze hide";
   silver.classList = "fa fa-star fa-2x silver hide";
-  gold.classList = "fa fa-star fa-3x gold hide"
+  gold.classList = "fa fa-star fa-3x gold hide";
   running = false;
   once = 1;
   clearInterval(ticker); //clock timer stops ticking
@@ -189,7 +185,9 @@ function mvCounter() { //increment the move counter and display it on the page
 }
 
 function symbolChecker(elm) { //add the card to a *list* of "open" cards and asigns symbol
-  let symbols = ["diamond", "paper", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
+  let symbols = ["diamond", "paper", "anchor", "bolt", "cube", "leaf",
+    "bicycle", "bomb"
+  ];
   for (j = 0; j < symbols.length; j++) {
     if (elm.children[0].className.includes(symbols[j])) {
       openCards.push(symbols[j]);
