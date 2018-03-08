@@ -91,12 +91,12 @@ h1 {
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
-  grid-gap: 40px;
+  grid-gap: 20px;
 }
 
 .clock {
   display: inline-block;
-  width: 100px;
+  width: 122px;
 }
 
 .seconds {
