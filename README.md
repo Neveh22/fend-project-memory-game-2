@@ -15,4 +15,5 @@
 - [Font Awesome](https://fontawesome.com/get-started)
 - [Google Fonts](https://fonts.google.com/)
 - [Animate.css](https://daneden.github.io/animate.css/)
+- [Hero Patterns](http://www.heropatterns.com/)
 - :coffee: & :headphones:
