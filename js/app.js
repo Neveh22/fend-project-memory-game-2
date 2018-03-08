@@ -38,6 +38,9 @@ populateFromStorage();
 
 function stopWatch() { // Displays time elapsed
   timeTaken = Date.now() - startTime;
+  if (timeTaken > 999999) {
+    timeTaken = 999999;
+  }
   t = Math.round((timeTaken + 100) / 100) / 10;
   seconds.innerText = t;
   seconds.innerText.onchange = populateStorage();
@@ -161,6 +164,9 @@ function startStop() {
   if (running) {
     timeTaken = Date.now() - startTime;
     running = false;
+    if (timeTaken > 999999) {
+      timeTaken = 999999;
+    }
     time = "Time: " + Math.round(timeTaken / 100) / 10 + " Seconds!!";
   } else {
     running = true;
